@@ -1,7 +1,10 @@
 export type VendorSummary = {
   id: string;
   name: string;
-  vendor_requirements: unknown[] | null;
+  vendor_requirements:
+    | { requirements: Record<string, unknown> }
+    | { requirements: Record<string, unknown> }[]
+    | null;
   coi_cases?: {
     id: string;
     status: string;
