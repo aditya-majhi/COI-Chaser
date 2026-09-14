@@ -86,10 +86,6 @@ export function Dashboard({
   ).length;
   const needsYou = cases.filter(item => attention.has(item.status)).length;
 
-  const hasRequirements = Array.isArray(vendor.vendor_requirements)
-    ? vendor.vendor_requirements.length > 0
-    : Boolean(vendor.vendor_requirements);
-
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -159,6 +155,9 @@ export function Dashboard({
               const reviewPending = latest
                 ? pendingAction === `review:${latest.id}`
                 : false;
+              const hasRequirements = Array.isArray(vendor.vendor_requirements)
+                ? vendor.vendor_requirements.length > 0
+                : Boolean(vendor.vendor_requirements);
               return (
                 <div
                   key={vendor.id}
