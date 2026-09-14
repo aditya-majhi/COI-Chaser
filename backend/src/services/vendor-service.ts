@@ -21,9 +21,10 @@ export async function getOrganizationVendor(
 export async function createOrganizationVendor(
   organizationId: string,
   input: Parameters<typeof createVendor>[1],
-  contacts: Parameters<typeof createVendor>[2]
+  contacts: Parameters<typeof createVendor>[2],
+  requirements: Parameters<typeof createVendor>[3]
 ) {
-  return createVendor(organizationId, input, contacts);
+  return createVendor(organizationId, input, contacts, requirements);
 }
 
 export async function updateOrganizationVendor(

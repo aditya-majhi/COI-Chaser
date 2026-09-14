@@ -35,7 +35,8 @@ export async function createVendorController(
     const vendor = await createOrganizationVendor(
       organizationId(request),
       { name: input.name, legal_name: input.legal_name },
-      input.contacts
+      input.contacts,
+      input.requirements
     );
     response.status(201).json(vendor);
   } catch (error) {

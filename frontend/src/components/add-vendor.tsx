@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { createVendor } from "../services/api/vendors";
-import { assignRequirements } from "../services/api/vendors";
 
 type Props = { organizationId: string; onCreated: () => void };
 
@@ -22,14 +21,11 @@ export function AddVendorForm({ organizationId, onCreated }: Props) {
     setError(null);
     setSaving(true);
     try {
-      const vendor = (await createVendor(organizationId, {
+      await createVendor(organizationId, {
         name,
         contacts: contactEmail
           ? [{ name: "Primary contact", email: contactEmail, is_primary: true }]
           : [],
-      })) as { id: string };
-
-      await assignRequirements(organizationId, vendor.id, {
         requirements: {
           general_liability: {
             required: true,

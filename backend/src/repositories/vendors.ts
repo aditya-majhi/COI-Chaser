@@ -36,23 +36,21 @@ export async function createVendor(
     email: string;
     role?: string;
     is_primary: boolean;
-  }>
+  }>,
+  requirements: Record<string, unknown>
 ) {
-  const { data, error } = await supabaseAdmin
-    .from("vendors")
-    .insert({ organization_id: organizationId, ...vendor })
-    .select()
-    .single();
+  const { data: vendorId, error } = await supabaseAdmin.rpc(
+    "create_vendor_with_requirements",
+    {
+      target_organization_id: organizationId,
+      target_name: vendor.name,
+      target_legal_name: vendor.legal_name ?? null,
+      target_contacts: contacts,
+      target_requirements: requirements,
+    }
+  );
   if (error) throw error;
-
-  if (contacts.length > 0) {
-    const { error: contactsError } = await supabaseAdmin
-      .from("vendor_contacts")
-      .insert(contacts.map(contact => ({ ...contact, vendor_id: data.id })));
-    if (contactsError) throw contactsError;
-  }
-
-  return getVendor(organizationId, data.id);
+  return getVendor(organizationId, vendorId);
 }
 
 export async function updateVendor(

@@ -20,6 +20,7 @@ export const createOrganizationSchema = z.object({
 export const createVendorSchema = z.object({
   name: z.string().trim().min(1).max(200),
   legal_name: z.string().trim().max(200).optional(),
+  requirements: z.record(z.string(), z.unknown()),
   contacts: z
     .array(
       z.object({

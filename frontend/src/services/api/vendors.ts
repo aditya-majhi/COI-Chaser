@@ -11,6 +11,7 @@ export type CreateVendorInput = {
   name: string;
   legal_name?: string;
   contacts?: VendorContactInput[];
+  requirements: Record<string, unknown>;
 };
 
 export type RequirementInput = {
